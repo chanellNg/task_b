@@ -37,4 +37,5 @@ app.listen(port, function () {
     console.log("Running quote on port " + port);
 });
 
+module.exports = app;
 

@@ -18,6 +18,7 @@ exports.index = function (req, res) {
         });
     });
 };
+
 // Handle create quote actions
 exports.new = function (req, res) {
     var quote = new Quote();
