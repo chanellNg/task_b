@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/task_b', { useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/quote', { useNewUrlParser: true});
 var db = mongoose.connection;
 
 // Added check for DB connection
@@ -28,13 +28,13 @@ else
 var port = process.env.PORT || 8080;
 
 // Send message for default URL
-app.get('/', (req, res) => res.send('Trying to do task b'));
+app.get('/', (req, res) => res.send('Do you want quotes?'));
 
 // Use Api routes in the App
 app.use('/api', apiRoutes);
 // Launch app to listen to specified port
 app.listen(port, function () {
-    console.log("Running task_b on port " + port);
+    console.log("Running quote on port " + port);
 });
 
 

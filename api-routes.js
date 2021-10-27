@@ -4,21 +4,21 @@ let router = require('express').Router();
 router.get('/', function (req, res) {
     res.json({
         status: 'API is Working',
-        message: 'Welcome to Task_B!'
+        message: 'Welcome to QUOTES!'
     });
 });
 
 // Import contact controller
-var contactController = require('./contactController');
+var quoteController = require('./quoteController');
 // Contact routes
-router.route('/contacts')
-    .get(contactController.index)
-    .post(contactController.new);
-router.route('/contacts/:contact_id')
-    .get(contactController.view)
-    .patch(contactController.update)
-    .put(contactController.update)
-    .delete(contactController.delete);
-    
+router.route('/quotes')
+    .get(quoteController.index)
+    .post(quoteController.new);
+router.route('/quotes/:quote_id')
+    .get(quoteController.view)
+    .patch(quoteController.update)
+    .put(quoteController.update)
+    .delete(quoteController.delete);
+
 // Export API routes
 module.exports = router;
