@@ -3,7 +3,7 @@ node_js:
   - "14"
 cache: npm
 script:
-  - echo 'Build starts!!'
+  - echo 'Build starts!'
   - echo 'Installing Deps!'
   - npm
   - echo 'Testing!'
