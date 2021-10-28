@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'test';
+
 
 let mongoose = require("mongoose");
 let Quote = require('../quoteModel');
@@ -37,10 +37,8 @@ describe('quotes', () => {
             .post('/')
             .send(quote)
             .end((err, res) => {
-                 console.log(res);
                   res.should.have.status(200);
                   res.body.should.have.property('status').eql("error: Unable to save quote");
-             
               done();
             });
       });
@@ -70,8 +68,7 @@ describe('quotes', () => {
             .end((err, res) => {
                   res.should.have.status(200);
                   res.body.should.be.a('object');
-                  res.body.data.should.have.property('content');
-                 
+                  res.body.data.should.have.property('content'); 
               done();
             });
           });
@@ -108,7 +105,6 @@ describe('quotes', () => {
                       res.should.have.status(200);
                       res.body.should.be.a('object');
                       res.body.should.have.property('message').eql('Quote deleted!');
-                     
                   done();
                 });
           });
