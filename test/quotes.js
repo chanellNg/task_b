@@ -15,7 +15,7 @@ describe('quotes', () => {
     beforeEach((done) => {
         Quote.remove({}, (err) => {
            done();
-        }).catch(done);
+        }).clone().catch(done);
     });
   describe('/GET quote', () => {
       it('it should GET all the quotes', (done) => {
