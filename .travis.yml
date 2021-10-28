@@ -4,8 +4,10 @@ node_js:
 services: mongodb
 before_script:
   - npm install
-script:
   - npm install -g serverless
-  - sls deploy
-  - node index.js &
-  - npm test
+deploy:
+  - provider: script
+  script: sls deploy
+  skip_cleanup: true
+  on:
+    branch: main

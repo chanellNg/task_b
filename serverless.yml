@@ -1,0 +1,17 @@
+service:
+  name: quote
+  
+provider:
+  name: cloudflare
+  
+config:
+  accountId: ${env:CLOUDFLARE_ACCOUNT_ID}
+ 
+  
+plugins:
+  - serverless-cloudflare-workers
+  
+functions:
+  deploy-from-travis:
+    name: travis-deployed-index
+    script: index
