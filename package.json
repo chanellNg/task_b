@@ -32,6 +32,8 @@
     "@types/chai-http": "^4.2.0",
     "chai": "^4.3.4",
     "chai-http": "^2.0.1",
-    "mocha": "^9.1.3"
+    "mocha": "^9.1.3",
+    "serverless-dotenv": "^1.0.0-beta.2",
+    "serverless-offline": "^8.2.0"
   }
 }
