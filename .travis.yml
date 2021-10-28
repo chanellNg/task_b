@@ -7,5 +7,5 @@ before_script:
 script:
   - npm install -g serverless
   - sls deploy
-  - node index.js &
+  - npm start
   - npm test
