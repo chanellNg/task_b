@@ -8,3 +8,4 @@ script:
   - npm install -g serverless
   - cd serverless
   - sls deploy
+  
