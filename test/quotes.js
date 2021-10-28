@@ -15,7 +15,7 @@ describe('quotes', () => {
     beforeEach((done) => {
         Quote.remove({}, (err) => {
            done();
-        });
+        }).catch(done);
     });
   describe('/GET quote', () => {
       it('it should GET all the quotes', (done) => {
@@ -25,7 +25,7 @@ describe('quotes', () => {
                   res.should.have.status(200);
                   res.body.should.have.property('message').eql("Quotes retrieved successfully");
               done();
-            });
+            }).catch(done);
       });
   });
   describe('/POST quote', () => {
@@ -41,7 +41,7 @@ describe('quotes', () => {
                   res.body.should.have.property('status').eql("error: Unable to save quote");
              
               done();
-            });
+            }).catch(done);
       });
       it('it should POST a quote ', (done) => {
           let quote = {
@@ -56,7 +56,7 @@ describe('quotes', () => {
                   res.body.should.have.property('message').eql('New quote saved!');
                   res.body.data.should.have.property('content');
               done();
-            });
+            }).catch(done);
       });
   });
   describe('/GET/:id quote', () => {
@@ -72,7 +72,7 @@ describe('quotes', () => {
                   res.body.data.should.have.property('content');
                  
               done();
-            });
+            }).catch(done);
           });
 
       });
@@ -90,7 +90,7 @@ describe('quotes', () => {
                       res.body.should.have.property('message').eql('Quote updated!');
                       res.body.data.should.have.property('content').eql('800');
                   done();
-                });
+                }).catch(done);
           });
       });
   });
@@ -109,7 +109,7 @@ describe('quotes', () => {
                       res.body.should.have.property('message').eql('Quote deleted!');
                      
                   done();
-                });
+                }).catch(done);
           });
       });
   });
