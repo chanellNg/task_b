@@ -90,7 +90,7 @@ functions:
         path: quotes
         method: put
         cors: true 
-   delete:  
+  delete:  
     handler: quoteController.delete
     events:
       - http: 
