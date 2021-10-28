@@ -59,28 +59,28 @@ provider:
 
 functions:
   index:
-    handler: ../quoteController.index
+    handler: quoteController.index
     events:
       - http: 
         path: quotes
         method: get
         cors: true
   new:
-    handler: ../quoteController.new
+    handler: quoteController.new
     events:
       - http: 
         path: quotes
         method: post
         cors: true 
   view:
-    handler: ../quoteController.view
+    handler: quoteController.view
     events:
       - http: 
         path: quotes/:quote_id
         method: get
         cors: true
   update:  
-    handler: ../quoteController.update
+    handler: quoteController.update
     events:
       - http: 
         path: quotes
@@ -91,7 +91,7 @@ functions:
         method: put
         cors: true 
   delete:  
-    handler: ../quoteController.delete
+    handler: quoteController.delete
     events:
       - http: 
         path: quotes
