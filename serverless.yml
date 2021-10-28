@@ -58,11 +58,46 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  app:
-    handler: index.handler
+  index:
+    handler: quoteController.index
     events:
-      - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http: 
+        path: quotes
+        method: get
+        cors: true
+  new:
+    handler: quoteController.new
+    events:
+      - http: 
+        path: quotes
+        method: post
+        cors: true 
+  view:
+    handler: quoteController.view
+      events:
+        - http: 
+          path: quotes/:quote_id
+          method: get
+          cors: true
+  update:  
+    handler: quoteController.update
+      events:
+        - http: 
+          path: quotes
+          method: patch
+          cors: true  
+        - http: 
+          path: quotes
+          method: put
+          cors: true 
+   delete:  
+    handler: quoteController.delete
+      events:
+        - http: 
+          path: quotes
+          method: delete
+          cors: true  
+        
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -114,6 +149,3 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
-Plugins:
-         - serverless-offline
-         - serverless-dotenv-plugin
