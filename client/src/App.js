@@ -1,6 +1,9 @@
+import Button from 'react-bootstrap/Button'
 import React, {Component} from 'react';
+import ListGroup from 'react-bootstrap/ListGroup'
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 class App extends Component {
@@ -64,13 +67,16 @@ render() {
             value={this.state.content}
             onChange={e => this.setState({ content: e.target.value })}
           />
-          <button type="submit">Submit</button>
+          
+          <Button variant="success" type="submit">Submit</Button>{' '}
         </form>
-        <button onClick={this.handleGet}>Get quotes</button>
+        <Button onClick={this.handleGet} variant="success">Get quotes</Button>{' '}
+        <p></p>
         {this.state.responseToPost.map(response =>
-                        <ul key={response}>
-                            <li>{response}</li>
-                        </ul>
+          <ListGroup key={response} style={{ alignItems:'center',
+          justifyContent:'center'}}>
+          <ListGroup.Item variant="primary" style={{ width: '50%' }}>{response}</ListGroup.Item>
+                            </ListGroup>
                     )}
       </div>
     );
