@@ -2,85 +2,66 @@ import Button from 'react-bootstrap/Button'
 import React, {Component} from 'react';
 import ListGroup from 'react-bootstrap/ListGroup'
 import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Navigation from './components/Navigation';
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import LandingPage from './components/LandingPage';
+import SignUpPage from './components/SignUpPage';
+import SignInPage from './components/SignInPage';
+import PasswordForgetPage from './components/PasswordForgetPage';
+import HomePage from './components/Homepage';
+import AccountPage from './components/AccountPage';
+import AdminPage from './components/AdminPage';
+ 
+import * as ROUTES from './constants/routes';
+import Firebase from './firebase';
+import FirebaseContext, {withFirebase} from './firebaseContext';
 
 class App extends Component {
-  state = {
-    response: [],
-    content: '',
-    responseToPost: [],
-  };
+  constructor(props) {
+    super(props);
+ 
+    this.state = {
+      authUser: null,
+    };
+  }
 
   componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.message }))
-      .catch(err => console.log(err));
+    this.listener = this.props.firebase.auth.onAuthStateChanged(
+      authUser => {
+        authUser
+          ? this.setState({ authUser })
+          : this.setState({ authUser: null });
+      },
+    );
   }
-  
-  callApi = async () => {
-    const response = await fetch('/api/quotes');
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    
-    return body;
-  };
-  
-  handleGet = async e => {
-    e.preventDefault();
-    const response = await fetch('/api/quotes', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const body = await response.json();
-    console.log(response);
-    console.log(body.data);
-    this.setState({ responseToPost: body.data.map(x=> x.content) });
-  };
-
-  handleSubmit = async e => {
-    e.preventDefault();
-    const response = await fetch('/api/quotes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ content: this.state.content }),
-    });
-    const body = await response.json();
-    this.setState({ response: body.message });
-  };
+ 
+  componentWillUnmount() {
+    this.listener();
+  }
   
 render() {
     return (
-      <div className="App">
-        <p>{this.state.response}</p>
-        <form onSubmit={this.handleSubmit}>
-          <p>
-            <strong>Post to Server:</strong>
-          </p>
-          <input
-            type="text"
-            value={this.state.content}
-            onChange={e => this.setState({ content: e.target.value })}
-          />
-          
-          <Button variant="success" type="submit">Submit</Button>{' '}
-        </form>
-        <Button onClick={this.handleGet} variant="success">Get quotes</Button>{' '}
-        <p></p>
-        {this.state.responseToPost.map(response =>
-          <ListGroup key={response} style={{ alignItems:'center',
-          justifyContent:'center'}}>
-          <ListGroup.Item variant="primary" style={{ width: '50%' }}>{response}</ListGroup.Item>
-                            </ListGroup>
-                    )}
-      </div>
+      <Router>
+    <div>
+      <Navigation authUser={this.state.authUser} />
+ 
+      <hr />
+ 
+      <Route exact path={ROUTES.LANDING} component={LandingPage} />
+      
+      <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+      <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+      <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+      <Route path={ROUTES.HOME} component={HomePage} />
+      <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+      <Route path={ROUTES.ADMIN} component={AdminPage} />
+    </div>
+  </Router>
     );
   }
 }
 
-export default App;
+export default withFirebase(App);
