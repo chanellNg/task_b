@@ -6,8 +6,8 @@ exports.index = function (req, res) {
     Quote.get(function (err, content) {
         if (err) {
             res.json({
-                status: "error: Unable to get quotes",
-                message: err,
+                status: err,
+                message: "error: Unable to get quotes",
             });
             return;
         }
@@ -28,8 +28,8 @@ exports.new = function (req, res) {
     quote.save(function (err) {
         if (err) {
             res.json({
-                status: "error: Unable to save quote",
-                message: err,
+                status: err,
+                message: "error: Unable to save quote",
             });
             return;
         }
@@ -45,8 +45,8 @@ exports.view = function (req, res) {
     Quote.findById(req.params.quote_id, function (err, quote) {
         if (err) {
             res.json({
-                status: "error: Unable to view quote",
-                message: err,
+                status: err,
+                message: "error: Unable to view quote",
             });
             return;
         }
@@ -61,8 +61,8 @@ exports.update = function (req, res) {
 Quote.findById(req.params.quote_id, function (err, quote) {
     if (err) {
         res.json({
-            status: "error: Unable to find quote",
-            message: err,
+            status: err,
+            message: "error: Unable to find quote",
         });
         return;
     }
@@ -72,8 +72,8 @@ Quote.findById(req.params.quote_id, function (err, quote) {
         quote.save(function (err) {
             if (err) {
                 res.json({
-                    status: "error: Unable to update quote",
-                    message: err,
+                    status: err,
+                    message: "error: Unable to update quote",
                 });
                 return;
             }
@@ -91,8 +91,8 @@ exports.delete = function (req, res) {
     }, function (err, quote) {
         if (err) {
             res.json({
-                status: "error: Unable to delete quote",
-                message: err,
+                status: err,
+                message: "Unable to delete quote!",
             });
             return;
         }
