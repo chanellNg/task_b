@@ -17,6 +17,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  role: '',
   error: null,
 };
 
@@ -27,20 +28,47 @@ class SignUpFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
+  onSubmit = async event => {
+    event.preventDefault();
+    console.log("signup");
+    const { username, email, passwordOne, role } = this.state;
 
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
-        this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+    const userCredentials = await this.props.firebase
+      .doCreateUserWithEmailAndPassword(email, passwordOne);
+    
+
+    this.setState({...INITIAL_STATE});
+      /**then(function(authUser){
+       
+        const uid = authUser.uid;
+        console.log(uid);
+        this.setState({ user:uid});
+        
       })
       .catch(error => {
         this.setState({ error });
       });
-
-    event.preventDefault();
+      **/
+    
+      console.log("user created");
+    
+    
+    //new change
+    
+    
+   
+    const uid = this.props.firebase.auth.currentUser.uid;
+    console.log(uid);
+    const response = await fetch('/api/quotes/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ uid:uid, role:role }),
+    });
+    console.log(response.json());
+    this.props.history.push(ROUTES.HOME);
+   
   };
 
   onChange = event => {
@@ -53,6 +81,7 @@ class SignUpFormBase extends Component {
       email,
       passwordOne,
       passwordTwo,
+      role,
       error,
     } = this.state;
 
@@ -60,6 +89,7 @@ class SignUpFormBase extends Component {
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
       email === '' ||
+      role === '' ||
       username === '';
 
     return (
@@ -91,6 +121,13 @@ class SignUpFormBase extends Component {
           onChange={this.onChange}
           type="password"
           placeholder="Confirm Password"
+        />
+        <input
+          name="role"
+          value={role}
+          onChange={this.onChange}
+          type="text"
+          placeholder="Confirm role"
         />
         <button disabled={isInvalid} type="submit">
           Sign Up

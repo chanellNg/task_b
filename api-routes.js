@@ -14,6 +14,8 @@ var quoteController = require('./quoteController');
 router.route('/quotes')
     .get(quoteController.index)
     .post(quoteController.new);
+router.route('/quotes/signup')
+    .post(quoteController.setRole)
 router.route('/quotes/:quote_id')
     .get(quoteController.view)
     .patch(quoteController.update)

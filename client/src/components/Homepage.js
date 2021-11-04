@@ -2,19 +2,25 @@ import Button from 'react-bootstrap/Button'
 import React, {Component} from 'react';
 import ListGroup from 'react-bootstrap/ListGroup'
 import { BrowserRouter as Router } from 'react-router-dom';
+import FirebaseContext, { withFirebase } from '../firebaseContext';
 
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 class Homepage extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
   state = {
     response: [],
     content: '',
     responseToPost: [],
   };
 
-  componentDidMount() {
+  /*componentDidMount() {
     this.callApi()
       .then(res => this.setState({ response: res.message }))
       .catch(err => console.log(err));
@@ -26,30 +32,53 @@ class Homepage extends Component {
     if (response.status !== 200) throw Error(body.message);
     
     return body;
-  };
+  }; */
   
+  createToken = async () => {
+    const user = this.props.firebase.auth.currentUser;
+    const token = user && (await user.getIdToken());
+    const payloadHeader = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+    };
+    return payloadHeader;
+  }
+
+  getRole = async () => {
+    const user = this.props.firebase.auth.currentUser;
+    const token = user && (await user.getIdTokenResult());
+    return token;
+  }
+
   handleGet = async e => {
     e.preventDefault();
+    const header = await this.createToken();
     const response = await fetch('/api/quotes', {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: header,
     });
     const body = await response.json();
+    console.log(header);
     console.log(response);
-    console.log(body.data);
-    this.setState({ responseToPost: body.data.map(x=> x.content) });
+    console.log(response.status);
+    console.log(body);
+    if(this.props.authUser) {
+      this.setState({ responseToPost: body.data.map(x=> x.content) });
+    } else {
+      this.setState({response: body.message });
+    }
   };
 
   handleSubmit = async e => {
     e.preventDefault();
+    const header = await this.createToken();
+    const token = await this.getRole();
+    console.log(token);
+    
     const response = await fetch('/api/quotes', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ content: this.state.content }),
+      headers: header,
+      body: JSON.stringify({  content: this.state.content }),
     });
     const body = await response.json();
     this.setState({ response: body.message });
@@ -84,4 +113,4 @@ render() {
   }
 }
 
-export default Homepage;
+export default withFirebase(Homepage);
