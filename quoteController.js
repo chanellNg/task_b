@@ -10,20 +10,20 @@ exports.index = function (req, res) {
     if (user) {
         Quote.get(function (err, content) {
             if (err) {
-                res.json({
+                res.status(404).json({
                     status: err,
                     message: "error: Unable to get quotes",
                 });
                 return;
             }
-            res.json({
+            res.status(200).json({
                 status: 200,
                 message: "Quotes retrieved successfully",
                 data: content
             });
         });
     } else {
-        return res.json({
+        return res.status(401).json({
             status: 401,
             message: "error: Unable to get quotes as user is not authenticated",
         });
@@ -67,20 +67,20 @@ exports.new = async function (req, res) {
 // save the quote and check for errors
     quote.save(function (err) {
         if (err) {
-            res.json({
+            res.status(404).json({
                 status: err,
                 message: "error: Unable to save quote",
             });
             return;
         }
         if(role != "admin") {
-            res.json({
+            res.status(403).json({
                 status: 403,
                 message: "error: Unable to save quote as you are not an admin",
             });
             return;
         }
-        res.json({
+        res.status(200).json({
             status: 200,
             message: 'New quote saved!',
             data: quote
