@@ -27,7 +27,8 @@
     "express": "^4.17.1",
     "mongoose": "^6.0.12",
     "serverless": "^2.64.1",
-    "serverless-cloudflare-workers": "^1.2.0"
+    "serverless-cloudflare-workers": "^1.2.0",
+    "serverless-http": "^2.7.0"
   },
   "devDependencies": {
     "@types/chai-http": "^4.2.0",
