@@ -5,13 +5,13 @@ Quote = require('./quoteModel');
 exports.index = function (req, res) {
     Quote.get(function (err, content) {
         if (err) {
-            res.json({
+            res.status(404).json({
                 status: err,
                 message: "error: Unable to get quotes",
             });
             return;
         }
-        res.json({
+        res.status(200).json({
             status: 200,
             message: "Quotes retrieved successfully",
             data: content
@@ -27,13 +27,13 @@ exports.new = function (req, res) {
 // save the quote and check for errors
     quote.save(function (err) {
         if (err) {
-            res.json({
+            res.status(403).json({
                 status: err,
                 message: "error: Unable to save quote",
             });
             return;
         }
-        res.json({
+        res.status(200).json({
             message: 'New quote saved!',
             data: quote,
             status:200
@@ -45,13 +45,13 @@ exports.new = function (req, res) {
 exports.view = function (req, res) {
     Quote.findById(req.params.quote_id, function (err, quote) {
         if (err) {
-            res.json({
+            res.status(404).json({
                 status: err,
                 message: "error: Unable to view quote",
             });
             return;
         }
-        res.json({
+        res.status(200).json({
             message: 'Finding your quote!',
             data: quote,
             status:200
@@ -62,7 +62,7 @@ exports.view = function (req, res) {
 exports.update = function (req, res) {
 Quote.findById(req.params.quote_id, function (err, quote) {
     if (err) {
-        res.json({
+        res.status(403).json({
             status: err,
             message: "error: Unable to find quote",
         });
@@ -73,13 +73,13 @@ Quote.findById(req.params.quote_id, function (err, quote) {
 // update the quote and check for errors
         quote.save(function (err) {
             if (err) {
-                res.json({
+                res.status(403).json({
                     status: err,
                     message: "error: Unable to update quote",
                 });
                 return;
             }
-            res.json({
+            res.status(200).json({
                 message: 'Quote updated!',
                 data: quote,
                 status:200
@@ -93,13 +93,13 @@ exports.delete = function (req, res) {
         _id: req.params.quote_id
     }, function (err, quote) {
         if (err) {
-            res.json({
+            res.status(403).json({
                 status: err,
                 message: "Unable to delete quote!",
             });
             return;
         }
-        res.json({
+        res.status(200).json({
             status: 200,
             message: 'Quote deleted!'
         });
