@@ -12,7 +12,7 @@ exports.index = function (req, res) {
             return;
         }
         res.json({
-            status: "success",
+            status: 200,
             message: "Quotes retrieved successfully",
             data: content
         });
@@ -35,7 +35,8 @@ exports.new = function (req, res) {
         }
         res.json({
             message: 'New quote saved!',
-            data: quote
+            data: quote,
+            status:200
         });
     });
 };
@@ -52,7 +53,8 @@ exports.view = function (req, res) {
         }
         res.json({
             message: 'Finding your quote!',
-            data: quote
+            data: quote,
+            status:200
         });
     });
 };
@@ -79,7 +81,8 @@ Quote.findById(req.params.quote_id, function (err, quote) {
             }
             res.json({
                 message: 'Quote updated!',
-                data: quote
+                data: quote,
+                status:200
             });
         });
     });
@@ -97,7 +100,7 @@ exports.delete = function (req, res) {
             return;
         }
         res.json({
-            status: "success",
+            status: 200,
             message: 'Quote deleted!'
         });
     });
