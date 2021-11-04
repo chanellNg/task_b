@@ -75,12 +75,13 @@ exports.new = async function (req, res) {
         }
         if(role != "admin") {
             res.json({
-                status: err,
+                status: 403,
                 message: "error: Unable to save quote as you are not an admin",
             });
             return;
         }
         res.json({
+            status: 200,
             message: 'New quote saved!',
             data: quote
         });
