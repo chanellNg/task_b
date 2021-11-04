@@ -37,7 +37,7 @@ describe('quotes', () => {
             .post('/')
             .send(quote)
             .end((err, res) => {
-                  res.should.have.status(200);
+                  res.should.have.status(403);
                   res.body.should.have.property('message').eql("error: Unable to save quote");
               done();
             });
