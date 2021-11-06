@@ -89,7 +89,8 @@ class SignUpFormBase extends Component {
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
       email === '' ||
-      role === '' ||
+      role === 'user' ||
+      role === 'admin' ||
       username === '';
 
     return (
@@ -127,7 +128,7 @@ class SignUpFormBase extends Component {
           value={role}
           onChange={this.onChange}
           type="text"
-          placeholder="Confirm role"
+          placeholder="user/admin"
         />
         <button disabled={isInvalid} type="submit">
           Sign Up

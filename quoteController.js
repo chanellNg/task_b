@@ -18,14 +18,14 @@ exports.index = function (req, res) {
             }
             res.status(200).json({
                 status: 200,
-                message: "Quotes retrieved successfully",
+                message: "Status:200, Quotes retrieved successfully",
                 data: content
             });
         });
     } else {
         return res.status(401).json({
             status: 401,
-            message: "error: Unable to get quotes as user is not authenticated",
+            message: "error 401: Unable to get quotes as user is not authenticated",
         });
         return;
     }
@@ -76,13 +76,13 @@ exports.new = async function (req, res) {
         if(role != "admin") {
             res.status(403).json({
                 status: 403,
-                message: "error: Unable to save quote as you are not an admin",
+                message: "error 403: Unable to save quote as you are not an admin",
             });
             return;
         }
         res.status(200).json({
             status: 200,
-            message: 'New quote saved!',
+            message: 'Status:200, New quote saved!',
             data: quote
         });
     });
