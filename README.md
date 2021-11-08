@@ -1,3 +1,2 @@
-# task_b
-
-in .travis.yml, npm test initiates testing
+# task_c
+using Firebase Authentication
