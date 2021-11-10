@@ -4,11 +4,6 @@ var quoteSchema = mongoose.Schema({
     content: {
         type: String,
         required: true
-    },
-
-    create_date: {
-        type: Date,
-        default: Date.now
     }
 });
 // Export Quote model
