@@ -22,7 +22,14 @@ exports.index = function (req, res) {
 // Handle create quote actions
 exports.new = function (req, res) {
     var quote = new Quote();
-    quote.content = req.body.content ? req.body.content : quote.content;
+    try {
+        quote.content = req.body.content ? req.body.content : quote.content;
+    }catch(err) {
+        res.json({
+            status: err,
+            message: "error: Please enter content",
+        });
+    }
 
 // save the quote and check for errors
     quote.save(function (err) {
@@ -68,7 +75,16 @@ Quote.findById(req.params.quote_id, function (err, quote) {
         });
         return;
     }
-    quote.content = req.body.content ? req.body.content : quote.content;
+    
+    
+    try {
+        quote.content = req.body.content ? req.body.content : quote.content;
+    }catch(err) {
+        res.status(404).json({
+            status: 404,
+            message: "error: Please enter content",
+        });
+    }
     
 // update the quote and check for errors
         quote.save(function (err) {
