@@ -59,13 +59,6 @@ provider:
 
 
 functions:
-  app:
-    handler: index.handler
-    events: 
-      - http: 
-          path: /
-          method: ANY
-          cors: true
   create:
     handler: quoteController.new
     events: 
