@@ -60,24 +60,16 @@ provider:
 
 functions:
   api:
-    handler: index.handler
+    handler: lambda.handler
     events:
       - http:
           path: /
           method: ANY
           cors: true
       - http:
-          path: /api
+          path: /{any+}
           method: ANY
           cors: true   
-      - http:
-          path: /api/quotes
-          method: ANY
-          cors: true
-      - http:
-          path: /api/quotes/:quote_id
-          method: ANY
-          cors: true
         
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
