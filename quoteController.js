@@ -60,10 +60,14 @@ exports.new = async function (req, res) {
     const uid = decodedToken.uid;
     console.log(uid);
     var role;
-    admin.auth().getUser(uid).then((userRecord) => {
+    role = await admin.auth().getUser(uid).then((userRecord) => {
         // The claims can be accessed on the user record.
-        role = userRecord.customClaims.role;
+        return role = userRecord.customClaims.role;
+        console.log("role is " + role);
+        console.log(userRecord.customClaims);
       });
+    
+    console.log(role);
 // save the quote and check for errors
     quote.save(function (err) {
         if (err) {
@@ -73,7 +77,7 @@ exports.new = async function (req, res) {
             });
             return;
         }
-        if(role != "admin") {
+        if(role != 'admin') {
             res.status(403).json({
                 status: 403,
                 message: "error 403: Unable to save quote as you are not an admin",

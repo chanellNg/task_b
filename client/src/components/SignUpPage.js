@@ -89,8 +89,6 @@ class SignUpFormBase extends Component {
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
       email === '' ||
-      role === 'user' ||
-      role === 'admin' ||
       username === '';
 
     return (
