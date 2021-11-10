@@ -67,17 +67,22 @@ functions:
           method: ANY
           cors: true
       - http:
-          path: /api
+          path: /{any+}
           method: ANY
-          cors: true   
+  getQuotes:
+    handler: quoteController.index
+    events:
       - http:
-          path: /api/quotes
-          method: ANY
-          cors: true
+          path: api/quotes
+          method: get
+          cors: true       
+  newQuotes:
+    handler: quoteController.new
+    events:
       - http:
-          path: /api/quotes/:quote_id
-          method: ANY
-          cors: true
+          path: api/quotes
+          method: post
+          cors: true        
         
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
