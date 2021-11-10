@@ -67,7 +67,7 @@ functions:
           method: ANY
           cors: true
       - http: 
-          path: /{proxy+}
+          path: /api/quotes
           method: ANY
           cors: true  
         

@@ -3,7 +3,7 @@ Quote = require('./quoteModel');
 
 // Handle index quote actions
 exports.index = function (req, res) {
-    Quote.get(function (err, content) {
+    Quote.get(function (err, quotes) {
         if (err) {
             res.status(404).json({
                 message: "error: Unable to get quotes",
@@ -12,7 +12,7 @@ exports.index = function (req, res) {
         }
         res.status(200).json({
             message: "Quotes retrieved successfully",
-            data: content
+            quotes
         });
     });
 };
