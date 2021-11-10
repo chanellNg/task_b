@@ -7,7 +7,7 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../index');
 let should = chai.should();
-let app = 'http://localhost:8080/api/quotes';
+let app = 'https://udldlrfizk.execute-api.us-east-1.amazonaws.com/dev/api/quotes';
 
 chai.use(chaiHttp);
 
