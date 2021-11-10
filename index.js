@@ -16,8 +16,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/quote', { useNewUrlParser: true});
-var db = mongoose.connection;
+//mongoose.connect('mongodb://localhost/quote', { useNewUrlParser: true});
+//var db = mongoose.connection;
+
+
 
 // Added check for DB connection
 if(!db)
@@ -33,6 +35,7 @@ app.get('/', (req, res) => res.send('Do you want quotes?'));
 
 // Use Api routes in the App
 app.use('/api', apiRoutes);
+
 // Launch app to listen to specified port
 if(!module.parent){
 app.listen(port, function () {
