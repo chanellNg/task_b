@@ -63,11 +63,11 @@ functions:
     handler: lambda.handler
     events:
     - http:
-        path: /api
+        path: /
         method: ANY
         cors: true
     - http:
-        path: /api/{proxy+}
+        path: /{any+}
         method: ANY
         cors: true
         
