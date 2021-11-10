@@ -67,7 +67,15 @@ functions:
           method: ANY
           cors: true
       - http:
-          path: /{any+}
+          path: /api
+          method: ANY
+          cors: true   
+      - http:
+          path: /api/quotes
+          method: ANY
+          cors: true
+      - http:
+          path: /api/quotes/:quote_id
           method: ANY
           cors: true
         
