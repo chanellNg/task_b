@@ -8,5 +8,4 @@ script:
   - npm install -g serverless
   - npm i serverless-http
   - sls deploy
-  - npm start &
-  - npm test
+  - npm start 
