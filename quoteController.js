@@ -5,14 +5,12 @@ Quote = require('./quoteModel');
 exports.index = function (req, res) {
     Quote.get(function (err, content) {
         if (err) {
-            res.json({
-                status: err,
+            res.status(404).json({
                 message: "error: Unable to get quotes",
             });
             return;
         }
-        res.json({
-            status: "success",
+        res.status(200).json({
             message: "Quotes retrieved successfully",
             data: content
         });
@@ -22,20 +20,25 @@ exports.index = function (req, res) {
 // Handle create quote actions
 exports.new = function (req, res) {
     var quote = new Quote();
-    quote.content = req.body.content ? req.body.content : quote.content;
+    try {
+        quote.content = req.body.content ? req.body.content : quote.content;
+    }catch(err) {
+        res.status(404).json({
+            message: "error: Please enter content",
+        });
+    }
 
 // save the quote and check for errors
     quote.save(function (err) {
         if (err) {
-            res.json({
-                status: err,
+            res.status(403).json({
                 message: "error: Unable to save quote",
             });
             return;
         }
-        res.json({
+        res.status(200).json({
             message: 'New quote saved!',
-            data: quote
+            data: quote,
         });
     });
 };
@@ -44,15 +47,14 @@ exports.new = function (req, res) {
 exports.view = function (req, res) {
     Quote.findById(req.params.quote_id, function (err, quote) {
         if (err) {
-            res.json({
-                status: err,
+            res.status(404).json({
                 message: "error: Unable to view quote",
             });
             return;
         }
-        res.json({
+        res.status(200).json({
             message: 'Finding your quote!',
-            data: quote
+            data: quote,
         });
     });
 };
@@ -60,26 +62,33 @@ exports.view = function (req, res) {
 exports.update = function (req, res) {
 Quote.findById(req.params.quote_id, function (err, quote) {
     if (err) {
-        res.json({
-            status: err,
+        res.status(403).json({
             message: "error: Unable to find quote",
         });
         return;
     }
-    quote.content = req.body.content ? req.body.content : quote.content;
+    
+    
+    try {
+        quote.content = req.body.content ? req.body.content : quote.content;
+    }catch(err) {
+        res.status(404).json({
+            error: err,
+            message: "error: Please enter content",
+        });
+    }
     
 // update the quote and check for errors
         quote.save(function (err) {
             if (err) {
-                res.json({
-                    status: err,
+                res.status(403).json({
                     message: "error: Unable to update quote",
                 });
                 return;
             }
-            res.json({
+            res.status(200).json({
                 message: 'Quote updated!',
-                data: quote
+                data: quote,
             });
         });
     });
@@ -90,14 +99,12 @@ exports.delete = function (req, res) {
         _id: req.params.quote_id
     }, function (err, quote) {
         if (err) {
-            res.json({
-                status: err,
+            res.status(403).json({
                 message: "Unable to delete quote!",
             });
             return;
         }
-        res.json({
-            status: "success",
+        res.status(200).json({
             message: 'Quote deleted!'
         });
     });
