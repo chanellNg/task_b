@@ -59,17 +59,17 @@ provider:
 
 
 functions:
-#   app:
-#     handler: index.handler
-#    events: 
-#       - http: 
-#           path: /
-#           method: ANY
-#           cors: true
-#       - http: 
-#           path: /{proxy+}
-#           method: ANY
-#           cors: true  
+  app:
+    handler: index.handler
+    events: 
+      - http: 
+          path: /
+          method: ANY
+          cors: true
+      - http: 
+          path: /{proxy+}
+          method: ANY
+          cors: true  
         
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
