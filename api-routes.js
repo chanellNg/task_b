@@ -13,11 +13,10 @@ var quoteController = require('./quoteController');
 // Contact routes
 router.get('/quotes', quoteController.index);
 router.post('/quotes',quoteController.new);
-router.route('/quotes/:quote_id')
-    .get(quoteController.view)
-    .patch(quoteController.update)
-    .put(quoteController.update)
-    .delete(quoteController.delete);
+router.get('/quotes/:quote_id',quoteController.view)
+router.patch('/quotes/:quote_id',quoteController.update)
+router.put('/quotes/:quote_id',quoteController.update)
+router.delete('/quotes/:quote_id', quoteController.delete);
 
 // Export API routes
 module.exports = router;
