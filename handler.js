@@ -18,7 +18,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not create the quote.'
+           body: 'error: Unable to save quote'
          })
        );
    });
@@ -37,7 +37,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not fetch the quote.'
+           body: 'error: Unable to view quote'
          })
        );
    });
@@ -56,7 +56,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not fetch the quotes.'
+           body: 'error: Unable to get quotes'
          })
        );
    });
@@ -81,7 +81,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not update the quote.'
+           body: 'error: Unable to update quote'
          })
        );
    });
@@ -94,7 +94,7 @@
          callback(null, {
            statusCode: 200,
            body: JSON.stringify({
-             message: 'Removed note with id: ' + quote._id,
+             message: 'Removed quote with id: ' + quote._id,
              quote: quote
            })
          })
@@ -103,7 +103,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not delete the quote.'
+           body: 'Unable to delete quote!'
          })
        );
    });
