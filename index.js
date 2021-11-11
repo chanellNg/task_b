@@ -3,7 +3,7 @@ let express = require('express');
 // Import Body parser
 let bodyParser = require('body-parser');
 // Import Mongoose
-//let mongoose = require('mongoose');
+let mongoose = require('mongoose');
 // Initialise the app
 let app = express();
 const cors = require('cors')
