@@ -58,16 +58,51 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  index:
+  app:
     handler: dist/index.handler
     events:
       - http:
           path: /
           method: ANY
           cors: true
-      - http:
-          path: /{any+}
-          method: ANY
+  index:
+    handler: quoteController.index
+    events:
+      - http: 
+          path: api/quotes
+          method: get
+          cors: true
+  new:
+    handler: quoteController.new
+    events:
+      - http: 
+          path: api/quotes
+          method: post
+          cors: true 
+  view:
+    handler: quoteController.view
+    events:
+      - http: 
+          path: api/quotes/:quote_id
+          method: get
+          cors: true
+  update:  
+    handler: quoteController.update
+    events:
+      - http: 
+          path: api/quotes/:quote_id
+          method: patch
+          cors: true  
+      - http: 
+          path: quotes
+          method: put
+          cors: true 
+  delete:  
+    handler: quoteController.delete
+    events:
+      - http: 
+          path: api/quotes/:quote_id
+          method: delete
           cors: true 
         
 #    The following are a few example events you can configure
