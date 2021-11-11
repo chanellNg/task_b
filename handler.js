@@ -2,11 +2,8 @@
 'use strict';
  require('dotenv').config({ path: './variables.env' });
  const connectToDatabase = require('./db');
- const TodoItem = require('./todo.model.js');
- module.exports.hello = (event, context, callback) => {
-   console.log('Hello World');
-   callback(null, 'Hello World');
- };
+ const TodoItem = require('./quoteModel.js');
+
  module.exports.create = (event, context, callback) => {
    context.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
