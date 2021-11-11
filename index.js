@@ -16,14 +16,14 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
-//mongoose.connect('mongodb://localhost/quote', { useNewUrlParser: true});
-//var db = mongoose.connection;
+mongoose.connect('mongodb://localhost/quote', { useNewUrlParser: true});
+var db = mongoose.connection;
 
 // Added check for DB connection
-//if(!db)
-    //console.log("Error connecting db")
-//else
-    //console.log("Db connected successfully")
+if(!db)
+    console.log("Error connecting db")
+else
+    console.log("Db connected successfully")
 
 // Setup server port
 var port = process.env.PORT || 8080;

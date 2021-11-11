@@ -18,7 +18,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not create the item.'
+           body: 'Could not create the quote.'
          })
        );
    });
@@ -37,7 +37,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not fetch the item.'
+           body: 'Could not fetch the quote.'
          })
        );
    });
@@ -56,7 +56,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not fetch the items.'
+           body: 'Could not fetch the quotes.'
          })
        );
    });
@@ -81,7 +81,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not update the items.'
+           body: 'Could not update the quote.'
          })
        );
    });
@@ -103,7 +103,7 @@
          callback(null, {
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not delete the item.'
+           body: 'Could not delete the quote.'
          })
        );
    });

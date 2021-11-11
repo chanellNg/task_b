@@ -1,115 +1,104 @@
- // handler.js
+ // Import quote model
+Quote = require('./quoteModel');
+
+// Handle index quote actions
+exports.index = function (req, res) {
+    Quote.get(function (err, content) {
+        if (err) {
+            res.json({
+                status: err,
+                message: "error: Unable to get quotes",
+            });
+            return;
+        }
+        res.json({
+            status: "success",
+            message: "Quotes retrieved successfully",
+            data: content
+        });
+    });
+};
+
+// Handle create quote actions
+exports.new = function (req, res) {
+    var quote = new Quote();
+    quote.content = req.body.content ? req.body.content : quote.content;
+
+// save the quote and check for errors
+    quote.save(function (err) {
+        if (err) {
+            res.json({
+                status: err,
+                message: "error: Unable to save quote",
+            });
+            return;
+        }
+        res.json({
+            message: 'New quote saved!',
+            data: quote
+        });
+    });
+};
+
+// Handle view quote message
+exports.view = function (req, res) {
+    Quote.findById(req.params.quote_id, function (err, quote) {
+        if (err) {
+            res.json({
+                status: err,
+                message: "error: Unable to view quote",
+            });
+            return;
+        }
+        res.json({
+            message: 'Finding your quote!',
+            data: quote
+        });
+    });
+};
+// Handle update quote message
+exports.update = function (req, res) {
+Quote.findById(req.params.quote_id, function (err, quote) {
+    if (err) {
+        res.json({
+            status: err,
+            message: "error: Unable to find quote",
+        });
+        return;
+    }
+    quote.content = req.body.content ? req.body.content : quote.content;
     
- 'use strict';
- require('dotenv').config({ path: './variables.env' });
- const connectToDatabase = require('./db');
- const Quote = require('./quoteModel.js');
-
- module.exports.create = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
-   connectToDatabase().then(() => {
-     Quote.create(JSON.parse(event.body))
-       .then(quote =>
-         callback(null, {
-           statusCode: 200,
-           body: JSON.stringify(quote)
-         })
-       )
-       .catch(err =>
-         callback(null, {
-           statusCode: err.statusCode || 500,
-           headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not create the quote.'
-         })
-       );
-   });
- };
- 
- module.exports.getOne = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
-   connectToDatabase().then(() => {
-     Quote.findById(event.pathParameters.id)
-       .then(quote =>
-         callback(null, {
-           statusCode: 200,
-           body: JSON.stringify(quote)
-         })
-       )
-       .catch(err =>
-         callback(null, {
-           statusCode: err.statusCode || 500,
-           headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not fetch the quote.'
-         })
-       );
-   });
- };
-
- module.exports.getAll = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
-   connectToDatabase().then(() => {
-     Quote.find()
-       .then(quotes =>
-         callback(null, {
-           statusCode: 200,
-           body: JSON.stringify(quotes)
-         })
-       )
-       .catch(err =>
-         callback(null, {
-           statusCode: err.statusCode || 500,
-           headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not fetch the quotes.'
-         })
-       );
-   });
- };
-
- module.exports.update = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
-   connectToDatabase().then(() => {
-     Quote.findByIdAndUpdate(
-       event.pathParameters.id,
-       JSON.parse(event.body),
-       {
-         new: true
-       }
-     )
-       .then(quote =>
-         callback(null, {
-           statusCode: 200,
-           body: JSON.stringify(quote)
-         })
-       )
-       .catch(err =>
-         callback(null, {
-           statusCode: err.statusCode || 500,
-           headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not update the quote.'
-         })
-       );
-   });
- };
-
- module.exports.delete = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
-   connectToDatabase().then(() => {
-     Quote.findByIdAndRemove(event.pathParameters.id)
-       .then(quote =>
-         callback(null, {
-           statusCode: 200,
-           body: JSON.stringify({
-             message: 'Removed note with id: ' + quote._id,
-             quote: quote
-           })
-         })
-       )
-       .catch(err =>
-         callback(null, {
-           statusCode: err.statusCode || 500,
-           headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not delete the quote.'
-         })
-       );
-   });
- };
+// update the quote and check for errors
+        quote.save(function (err) {
+            if (err) {
+                res.json({
+                    status: err,
+                    message: "error: Unable to update quote",
+                });
+                return;
+            }
+            res.json({
+                message: 'Quote updated!',
+                data: quote
+            });
+        });
+    });
+};
+// Handle delete contact
+exports.delete = function (req, res) {
+    Quote.remove({
+        _id: req.params.quote_id
+    }, function (err, quote) {
+        if (err) {
+            res.json({
+                status: err,
+                message: "Unable to delete quote!",
+            });
+            return;
+        }
+        res.json({
+            status: "success",
+            message: 'Quote deleted!'
+        });
+    });
+};
