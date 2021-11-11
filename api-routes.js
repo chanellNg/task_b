@@ -8,12 +8,11 @@ router.get('/', function (req, res) {
     });
 });
 
-// Import contact controller
+// Import controller
 var quoteController = require('./quoteController');
 // Contact routes
-router.route('/quotes')
-    .get(quoteController.index)
-    .post(quoteController.new);
+router.get('/quotes', quoteController.index);
+router.post('/quotes',quoteController.new);
 router.route('/quotes/:quote_id')
     .get(quoteController.view)
     .patch(quoteController.update)

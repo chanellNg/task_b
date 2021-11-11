@@ -62,28 +62,28 @@ functions:
     handler: quoteController.index
     events:
       - http: 
-          path: quotes
+          path: api/quotes
           method: get
           cors: true
   new:
     handler: quoteController.new
     events:
       - http: 
-          path: quotes
+          path: api/quotes
           method: post
           cors: true 
   view:
     handler: quoteController.view
     events:
       - http: 
-          path: quotes/:quote_id
+          path: api/quotes/:quote_id
           method: get
           cors: true
   update:  
     handler: quoteController.update
     events:
       - http: 
-          path: quotes
+          path: api/quotes/:quote_id
           method: patch
           cors: true  
       - http: 
@@ -94,7 +94,7 @@ functions:
     handler: quoteController.delete
     events:
       - http: 
-          path: quotes
+          path: api/quotes/:quote_id
           method: delete
           cors: true  
         

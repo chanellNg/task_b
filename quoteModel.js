@@ -12,7 +12,7 @@ var quoteSchema = mongoose.Schema({
     }
 });
 // Export Quote model
-var Quote = module.exports = mongoose.model('quote', quoteSchema);
+var Quote = module.exports = mongoose.model('Quote', quoteSchema);
 module.exports.get = function (callback, limit) {
     Quote.find(callback).limit(limit);
 }
