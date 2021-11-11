@@ -1,8 +1,8 @@
-// Import quote model
+ // Import quote model
 Quote = require('./quoteModel');
 
 // Handle index quote actions
-exports.index = function (req, res) {
+exports.getAll = function (req, res) {
     Quote.get(function (err, content) {
         if (err) {
             res.json({
@@ -20,7 +20,7 @@ exports.index = function (req, res) {
 };
 
 // Handle create quote actions
-exports.new = function (req, res) {
+exports.create = function (req, res) {
     var quote = new Quote();
     quote.content = req.body.content ? req.body.content : quote.content;
 
@@ -41,7 +41,7 @@ exports.new = function (req, res) {
 };
 
 // Handle view quote message
-exports.view = function (req, res) {
+exports.getOne = function (req, res) {
     Quote.findById(req.params.quote_id, function (err, quote) {
         if (err) {
             res.json({
@@ -98,7 +98,7 @@ exports.delete = function (req, res) {
         }
         res.json({
             status: "success",
-            message: 'Quote deleted!'
+            message: 'Quote deleted!',
         });
     });
 };

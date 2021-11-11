@@ -8,17 +8,15 @@ router.get('/', function (req, res) {
     });
 });
 
-// Import contact controller
+// Import controller
 var quoteController = require('./quoteController');
 // Contact routes
-router.route('/quotes')
-    .get(quoteController.index)
-    .post(quoteController.new);
-router.route('/quotes/:quote_id')
-    .get(quoteController.view)
-    .patch(quoteController.update)
-    .put(quoteController.update)
-    .delete(quoteController.delete);
+router.get('/quotes', quoteController.getAll);
+router.post('/quotes',quoteController.create);
+router.get('/quotes/:quote_id',quoteController.getOne)
+router.patch('/quotes/:quote_id',quoteController.update)
+router.put('/quotes/:quote_id',quoteController.update)
+router.delete('/quotes/:quote_id', quoteController.delete);
 
 // Export API routes
 module.exports = router;

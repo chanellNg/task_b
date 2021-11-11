@@ -6,7 +6,8 @@ let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 // Initialise the app
 let app = express();
-
+const cors = require('cors')
+app.use(cors())
 // Import routes
 let apiRoutes = require("./api-routes");
 // Configure bodyparser to handle post requests
@@ -31,7 +32,9 @@ var port = process.env.PORT || 8080;
 app.get('/', (req, res) => res.send('Do you want quotes?'));
 
 // Use Api routes in the App
+
 app.use('/api', apiRoutes);
+
 // Launch app to listen to specified port
 if(!module.parent){
 app.listen(port, function () {
