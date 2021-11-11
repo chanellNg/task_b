@@ -98,7 +98,7 @@ exports.delete = function (req, res) {
         }
         res.json({
             status: "success",
-            message: 'Removed quote with id: ' + quote._id,
+            message: 'Quote deleted!',
         });
     });
 };
