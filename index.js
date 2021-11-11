@@ -7,6 +7,7 @@ let bodyParser = require('body-parser');
 // Initialise the app
 let app = express();
 const cors = require('cors')
+const serverless = require('serverless-http');
 app.use(cors())
 // Import routes
 let apiRoutes = require("./api-routes");
@@ -42,5 +43,5 @@ app.listen(port, function () {
 });
 }
 
-module.exports = app;
+module.exports.handler = serverless(app);
 

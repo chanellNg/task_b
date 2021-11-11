@@ -1,102 +1,97 @@
- // handler.js
-    
- 'use strict';
+// handler.js
+'use strict';
  require('dotenv').config({ path: './variables.env' });
  const connectToDatabase = require('./db');
  const Quote = require('./quoteModel.js');
 
- module.exports.create = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
+exports.create = (req, res) => {
+   res.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
-     Quote.create(JSON.parse(event.body))
+     Quote.create((req.body))
        .then(quote =>
-         callback(null, {
+        res.json({
            statusCode: 200,
            body: JSON.stringify(quote)
          })
        )
        .catch(err =>
-         callback(null, {
+         res.json({
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not create the quote.'
+           body: 'Could not create the item.'
          })
        );
    });
  };
- 
- module.exports.getOne = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
+exports.getOne = (req, res) => {
+    res.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
-     Quote.findById(event.pathParameters.id)
+     Quote.findById(req.params.quote_id)
        .then(quote =>
-         callback(null, {
+        res.json({
            statusCode: 200,
            body: JSON.stringify(quote)
          })
        )
        .catch(err =>
-         callback(null, {
+        res.json({
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not fetch the quote.'
+           body: 'Could not fetch the item.'
          })
        );
    });
  };
-
- module.exports.getAll = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
+exports.getAll = (req, res) => {
+    res.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
      Quote.find()
-       .then(quotes =>
-         callback(null, {
+       .then(quote =>
+        res.json({
            statusCode: 200,
-           body: JSON.stringify(quotes)
+           body: JSON.stringify(quote)
          })
        )
        .catch(err =>
-         callback(null, {
+        res.json({
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not fetch the quotes.'
+           body: 'Could not fetch the items.'
          })
        );
    });
  };
-
- module.exports.update = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
+ exports.update = (req, res) => {
+    res.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
      Quote.findByIdAndUpdate(
-       event.pathParameters.id,
-       JSON.parse(event.body),
+        req.params.quote_id,
+        req.body,
        {
          new: true
        }
      )
        .then(quote =>
-         callback(null, {
+        res.json({
            statusCode: 200,
            body: JSON.stringify(quote)
          })
        )
        .catch(err =>
-         callback(null, {
+        res.json({
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not update the quote.'
+           body: 'Could not update the items.'
          })
        );
    });
  };
-
- module.exports.delete = (event, context, callback) => {
-   context.callbackWaitsForEmptyEventLoop = false;
+exports.delete = (req, res) => {
+    res.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
-     Quote.findByIdAndRemove(event.pathParameters.id)
+     Quote.findByIdAndRemove(req.params.quote_id)
        .then(quote =>
-         callback(null, {
+        res.json({
            statusCode: 200,
            body: JSON.stringify({
              message: 'Removed note with id: ' + quote._id,
@@ -105,10 +100,10 @@
          })
        )
        .catch(err =>
-         callback(null, {
+        res.json({
            statusCode: err.statusCode || 500,
            headers: { 'Content-Type': 'text/plain' },
-           body: 'Could not delete the quote.'
+           body: 'Could not delete the item.'
          })
        );
    });
