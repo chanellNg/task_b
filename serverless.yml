@@ -58,52 +58,41 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  app:
-    handler: dist/index.handler
+  create:
+    handler: handler.create # point to exported create function in handler.js
     events:
       - http:
-          path: /
-          method: ANY
-          cors: true
-  index:
-    handler: quoteController.index
-    events:
-      - http: 
-          path: api/quotes
-          method: get
-          cors: true
-  new:
-    handler: quoteController.new
-    events:
-      - http: 
-          path: api/quotes
+          path: quotes 
           method: post
-          cors: true 
-  view:
-    handler: quoteController.view
+          cors: true
+  getOne:
+    handler: handler.getOne
     events:
-      - http: 
-          path: api/quotes/:quote_id
+      - http:
+          path: quotes/{id} 
           method: get
           cors: true
-  update:  
-    handler: quoteController.update
+  getAll:
+    handler: handler.getAll # path will be domain.name.com/dev/notes
     events:
-      - http: 
-          path: api/quotes/:quote_id
-          method: patch
-          cors: true  
-      - http: 
+      - http:
           path: quotes
-          method: put
-          cors: true 
-  delete:  
-    handler: quoteController.delete
+          method: get
+          cors: true
+  update:
+    handler: handler.update # path will be domain.name.com/dev/notes/1
     events:
-      - http: 
-          path: api/quotes/:quote_id
+      - http:
+          path: quotes/{id}
+          method: put
+          cors: true
+  delete:
+    handler: handler.delete
+    events:
+      - http:
+          path: quotes/{id} # path will be domain.name.com/dev/notes/1
           method: delete
-          cors: true 
+          cors: true
         
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
