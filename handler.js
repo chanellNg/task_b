@@ -2,16 +2,16 @@
 'use strict';
  require('dotenv').config({ path: './variables.env' });
  const connectToDatabase = require('./db');
- const TodoItem = require('./quoteModel.js');
+ const Quote = require('./quoteModel.js');
 
  module.exports.create = (event, context, callback) => {
    context.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
-     TodoItem.create(JSON.parse(event.body))
-       .then(todoitem =>
+     Quote.create(JSON.parse(event.body))
+       .then(quote =>
          callback(null, {
            statusCode: 200,
-           body: JSON.stringify(todoitem)
+           body: JSON.stringify(quote)
          })
        )
        .catch(err =>
@@ -26,11 +26,11 @@
  module.exports.getOne = (event, context, callback) => {
    context.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
-     TodoItem.findById(event.pathParameters.id)
-       .then(todoitem =>
+     Quote.findById(event.pathParameters.id)
+       .then(quote =>
          callback(null, {
            statusCode: 200,
-           body: JSON.stringify(todoitem)
+           body: JSON.stringify(quote)
          })
        )
        .catch(err =>
@@ -45,11 +45,11 @@
  module.exports.getAll = (event, context, callback) => {
    context.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
-     TodoItem.find()
-       .then(todoitems =>
+     Quote.find()
+       .then(quote =>
          callback(null, {
            statusCode: 200,
-           body: JSON.stringify(todoitems)
+           body: JSON.stringify(quote)
          })
        )
        .catch(err =>
@@ -64,17 +64,17 @@
  module.exports.update = (event, context, callback) => {
    context.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
-     TodoItem.findByIdAndUpdate(
+     Quote.findByIdAndUpdate(
        event.pathParameters.id,
        JSON.parse(event.body),
        {
          new: true
        }
      )
-       .then(todoitem =>
+       .then(quote =>
          callback(null, {
            statusCode: 200,
-           body: JSON.stringify(todoitem)
+           body: JSON.stringify(quote)
          })
        )
        .catch(err =>
@@ -89,13 +89,13 @@
  module.exports.delete = (event, context, callback) => {
    context.callbackWaitsForEmptyEventLoop = false;
    connectToDatabase().then(() => {
-     TodoItem.findByIdAndRemove(event.pathParameters.id)
-       .then(todoitem =>
+     Quote.findByIdAndRemove(event.pathParameters.id)
+       .then(quote =>
          callback(null, {
            statusCode: 200,
            body: JSON.stringify({
-             message: 'Removed note with id: ' + todoitem._id,
-             todoitem: todoitem
+             message: 'Removed note with id: ' + quote._id,
+             quote: quote
            })
          })
        )
