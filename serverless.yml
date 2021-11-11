@@ -59,7 +59,7 @@ provider:
 
 functions:
   index:
-    handler: index.handler
+    handler: dist/index.handler
     events:
       - http:
           path: /
